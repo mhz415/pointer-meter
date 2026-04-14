@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import timm
 
-# =========================================================================
 class H_MLP_Optimized(nn.Module):
     def __init__(self, dim):
         super(H_MLP_Optimized, self).__init__()
+        # 💡 核大小为 7，配合 dilation=2，实际感受野达到 13 像素
         self.horizontal = nn.Sequential(
             nn.Conv2d(dim, dim, (1, 7), padding=(0, 6), dilation=(1, 2), groups=dim, bias=False),
             nn.BatchNorm2d(dim)
@@ -26,9 +26,7 @@ class H_MLP_Optimized(nn.Module):
         v = self.vertical(x)
         return x * self.fuse(h + v)
 
-# =========================================================================
-# 2. 轻量级 CCM (引入 Bottleneck 瓶颈结构，大幅提速)
-# =========================================================================
+
 class CCM_Light(nn.Module):
     def __init__(self, dim):
         super(CCM_Light, self).__init__()
@@ -52,9 +50,7 @@ class CCM_Light(nn.Module):
         x = res + x_feat * self.gate(x_feat)
         return self.relu(x)
 
-# =========================================================================
-# 3. 语义差异模块 SDM (边缘精修)
-# =========================================================================
+
 class SDM_2D(nn.Module):
     def __init__(self, in_channels, num_classes):
         super(SDM_2D, self).__init__()
@@ -69,9 +65,7 @@ class SDM_2D(nn.Module):
         diff = self.diff_conv(torch.cat([feat, pre_mask], dim=1))
         return pre_mask + diff
 
-# =========================================================================
-# 4. 特征对齐模块 CLIFF
-# =========================================================================
+
 class CLIFF(nn.Module):
     def __init__(self, high_channels, low_channels, out_channels, BatchNorm=nn.BatchNorm2d):
         super(CLIFF, self).__init__()
@@ -99,7 +93,7 @@ class CLIFF(nn.Module):
         return self.fusion_conv(torch.cat([high_feat_up, low_feat, enhanced_low_feat], dim=1))
 
 # =========================================================================
-# 5. ASPP 模块 (适配多尺度特征)
+#  ASPP 模块 (适配多尺度特征)
 # =========================================================================
 class ASPP(nn.Module):
     def __init__(self, output_stride, BatchNorm, in_channels):
@@ -129,7 +123,7 @@ class ASPP(nn.Module):
         return self.conv1(torch.cat((x1, x2, x3, x4, x5), dim=1))
 
 # =========================================================================
-# 6. 主模型 DeepLab (MSH-PPNet Optimized)
+# 6主模型 DeepLab (MSH-PPNet Optimized)
 # =========================================================================
 class DeepLab(nn.Module):
     def __init__(self, num_classes=3, backbone='mobilenetv4', output_stride=16):
