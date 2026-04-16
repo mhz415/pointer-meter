@@ -31,4 +31,7 @@ This dataset is used for meter segmentation, specifically to segment the pointer
 - **model.py**: Encapsulates the complete FSS-DeeplabV3Plus model architecture.
 - **train_yolo.py**: Main training and evaluation script for Dataset1.
 - **train.py**: Main training and evaluation script for Dataset2.
-- - **mask1.py**:Keypoint detection and reading are then performed on the segmented results.
+-  **mask1.py**:Keypoint detection and reading are then performed on the segmented results.
+
+## 4. weight
+链接: https://pan.baidu.com/s/1P5WZIVjy56cS9c8GETiWog 提取码: ez9e
