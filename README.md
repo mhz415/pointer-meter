@@ -34,4 +34,4 @@ This dataset is used for meter segmentation, specifically to segment the pointer
 -  **mask1.py**:Keypoint detection and reading are then performed on the segmented results.
 
 ## 4. weight
-链接: https://pan.baidu.com/s/1P5WZIVjy56cS9c8GETiWog 提取码: ez9e
+Link: https://pan.baidu.com/s/1P5WZIVjy56cS9c8GETiWog Extraction Code: ez9e
