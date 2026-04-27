@@ -35,3 +35,6 @@ This dataset is used for meter segmentation, specifically to segment the pointer
 
 ## 4. weight
 Link: https://pan.baidu.com/s/1P5WZIVjy56cS9c8GETiWog Extraction Code: ez9e
+## 5. dataset
+通过网盘分享的文件：segdataset.zip
+链接: https://pan.baidu.com/s/188gxivneS23k1TDzgNtuig 提取码: 9bun
